@@ -6,6 +6,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User } from 'src/common/decorator/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
@@ -24,8 +25,8 @@ export class UsersController {
   })
   @ApiOperation({ summary: '내 정보 조회' })
   @Get()
-  getUsers(@Req() req) {
-    return req.user;
+  getUsers(@User() user) {
+    return user;
   }
 
   @ApiOperation({ summary: '회원가입' })
@@ -52,7 +53,7 @@ export class UsersController {
 
   @ApiOperation({ summary: '로그아웃' })
   @Post('logout')
-  logOut(@Req() req, @Res() res) {
+  logOut(@User() user, @Res() res) {
     // Req, Res는 express와의 결합성이 높아지기 때문에 최대한 사용하지 않는 게 좋다.
     // 예를들어 express -> fastify로 넘어간다면 express와 결합된 함수는 에러가 뜰 것이다.
     res.logout();
