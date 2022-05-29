@@ -28,10 +28,9 @@
     "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
     "########## sync - 테이블을 생성하는 명령어": "",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
-
-    "########## migration 명령어" : "",
+    "########## migration 명령어": "",
     "db:migrate": "npm run typeorm migration:run",
-    "########## migration 롤백" : "",
+    "########## migration 롤백": "",
     "db:migrate:revert": "npm run typeorm migration:revert",
     "db:create-migration": "npm run typeorm migration:create -- -n",
     "db:generate-migration": "npm run typeorm migration:generate -- -n"
@@ -43,6 +42,8 @@
     "@nestjs/platform-express": "^7.5.5",
     "@nestjs/swagger": "^4.7.13",
     "@nestjs/typeorm": "^8.0.4",
+    "bcrypt": "^5.0.1",
+    "class-validator": "^0.13.2",
     "dotenv": "^16.0.1",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
