@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as ormConfig from '../ormconfig';
 
 // 외부 클라우드에서 불러오는 비동기 작업
 // const getEnv = async () => {
@@ -16,7 +18,14 @@ import { DmsModule } from './dms/dms.module';
 // };
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true, load: [] }), UsersModule, WorkspacesModule, ChannelsModule, DmsModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    UsersModule,
+    WorkspacesModule,
+    ChannelsModule,
+    DmsModule,
+    TypeOrmModule.forRoot(ormConfig),
+  ],
   controllers: [AppController],
   providers: [
     AppService,
