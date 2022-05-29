@@ -19,7 +19,22 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "########## seed - 초기 더미 데이터를 코드로 관리": "",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "########## drop - 테이블을 전체 다 날리는 명령어": "",
+    "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
+    "########## sync - 테이블을 생성하는 명령어": "",
+    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
+
+    "########## migration 명령어" : "",
+    "db:migrate": "npm run typeorm migration:run",
+    "########## migration 롤백" : "",
+    "db:migrate:revert": "npm run typeorm migration:revert",
+    "db:create-migration": "npm run typeorm migration:create -- -n",
+    "db:generate-migration": "npm run typeorm migration:generate -- -n"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.18",
@@ -34,7 +49,8 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.4.0",
-    "typeorm": "^0.2.45"
+    "typeorm": "^0.2.45",
+    "typeorm-seeding": "^1.6.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
