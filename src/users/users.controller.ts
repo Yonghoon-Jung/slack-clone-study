@@ -1,16 +1,34 @@
 import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import {
+  ApiInternalServerErrorResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { UserDto } from 'src/common/dto/user.dto';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
+@ApiTags('USER')
 @Controller('api/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiOkResponse({
+    description: '성공',
+    type: UserDto,
+  })
+  @ApiInternalServerErrorResponse({
+    description: '서버 에러',
+  })
+  @ApiOperation({ summary: '내 정보 조회' })
   @Get()
   getUsers(@Req() req) {
     return req.user;
   }
 
+  @ApiOperation({ summary: '회원가입' })
   @Post()
   postUsers(@Body() data: JoinRequestDto) {
     const res = this.usersService.postUsers(
@@ -21,11 +39,18 @@ export class UsersController {
     return res;
   }
 
+  @ApiOkResponse()
+  @ApiResponse({
+    description: '성공',
+    type: UserDto,
+  })
+  @ApiOperation({ summary: '로그인' })
   @Post('login')
   logIn() {
-    return req.user;
+    return;
   }
 
+  @ApiOperation({ summary: '로그아웃' })
   @Post('logout')
   logOut(@Req() req, @Res() res) {
     // Req, Res는 express와의 결합성이 높아지기 때문에 최대한 사용하지 않는 게 좋다.
