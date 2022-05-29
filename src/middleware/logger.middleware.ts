@@ -3,6 +3,13 @@ import { NextFunction, Request, Response } from 'express';
 
 /*
 implements를 사용하면 반드시 사용해야 하는 강제성이 생김
+에디터와 typescript의 이점을 사용할 수 있다는 장점이 있음
+implements를 사용함으로 아래 로거 부분을 무조건 구현해야 함
+
+injectable이란?
+nest는 di(디펜덴시 인젝션) 즉 의존성 주입이라는 걸 해주는데
+providers에 있는 것들을 보고 의존성 주입을 해줌
+테스트, 재사용성, 결합성을 낮추기 위함
 */
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
