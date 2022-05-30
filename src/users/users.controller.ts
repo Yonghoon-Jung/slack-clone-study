@@ -5,6 +5,7 @@ import {
   Post,
   Req,
   Res,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -17,6 +18,7 @@ import {
 import { User } from 'src/common/decorator/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
 import { UndefinedToNullInterceptor } from 'src/common/interceptors/undefinedToNull.interceptor';
+import { Users } from 'src/entities/Users';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
@@ -34,6 +36,7 @@ export class UsersController {
     description: '서버 에러',
   })
   @ApiOperation({ summary: '내 정보 조회' })
+  @UseGuards(LocalAuthGuard)
   @Get()
   getUsers(@User() user) {
     return user;
