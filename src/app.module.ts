@@ -9,6 +9,7 @@ import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormConfig from '../ormconfig';
+import { AuthModule } from './auth/auth.module';
 
 // 외부 클라우드에서 불러오는 비동기 작업
 // const getEnv = async () => {
@@ -24,6 +25,7 @@ import * as ormConfig from '../ormconfig';
     WorkspacesModule,
     ChannelsModule,
     DmsModule,
+    AuthModule,
     TypeOrmModule.forRoot(ormConfig),
   ],
   controllers: [AppController],

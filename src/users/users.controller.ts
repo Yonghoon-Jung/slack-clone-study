@@ -15,6 +15,9 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { LoggedInGuard } from 'src/auth/logged-in.guard';
+import { NotLoggedInGuard } from 'src/auth/not-logged-in.guard';
 import { User } from 'src/common/decorator/user.decorator';
 import { UserDto } from 'src/common/dto/user.dto';
 import { UndefinedToNullInterceptor } from 'src/common/interceptors/undefinedToNull.interceptor';
@@ -36,13 +39,13 @@ export class UsersController {
     description: '서버 에러',
   })
   @ApiOperation({ summary: '내 정보 조회' })
-  @UseGuards(LocalAuthGuard)
   @Get()
   getUsers(@User() user) {
-    return user;
+    return user || false;
   }
 
   @ApiOperation({ summary: '회원가입' })
+  @UseGuards(new NotLoggedInGuard())
   @Post()
   async join(@Body() data: JoinRequestDto) {
     const res = await this.usersService.join(
@@ -59,12 +62,14 @@ export class UsersController {
     type: UserDto,
   })
   @ApiOperation({ summary: '로그인' })
+  @UseGuards(new LocalAuthGuard())
   @Post('login')
   logIn() {
     return;
   }
 
   @ApiOperation({ summary: '로그아웃' })
+  @UseGuards(new LoggedInGuard())
   @Post('logout')
   logOut(@User() user, @Res() res) {
     // Req, Res는 express와의 결합성이 높아지기 때문에 최대한 사용하지 않는 게 좋다.
