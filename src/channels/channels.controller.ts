@@ -16,10 +16,11 @@ import fs from 'fs';
 import multer from 'multer';
 import path from 'path';
 import { LoggedInGuard } from '../auth/logged-in.guard';
-import { User } from '../common/decorators/user.decorator';
+
 import { Users } from '../entities/Users';
 import { CreateChannelDto } from './dto/create-channel.dto';
 import { ChannelsService } from './channels.service';
+import { User } from 'src/common/decorator/user.decorator';
 
 try {
   fs.readdirSync('uploads');
