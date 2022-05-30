@@ -16,8 +16,8 @@ import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import * as fs from 'fs';
 import multer from 'multer';
 import path from 'path';
+import { User } from 'src/common/decorator/user.decorator';
 import { LoggedInGuard } from '../auth/logged-in.guard';
-import { User } from '../common/decorators/user.decorator';
 import { Users } from '../entities/Users';
 import { DMsService } from './dms.service';
 
