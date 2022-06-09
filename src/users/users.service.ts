@@ -40,6 +40,7 @@ export class UsersService {
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
+
     try {
       const returned = await queryRunner.manager.getRepository(Users).save({
         email,
