@@ -31,7 +31,7 @@ export class UsersService {
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
-    const user = await queryRunner.manager
+    const user: Users = await queryRunner.manager
       .getRepository(Users)
       .findOne({ where: { email } });
 
@@ -39,14 +39,16 @@ export class UsersService {
       throw new UnauthorizedException();
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword: any = await bcrypt.hash(password, 12);
 
     try {
-      const returned = await queryRunner.manager.getRepository(Users).save({
-        email,
-        nickname,
-        password: hashedPassword,
-      });
+      const returned: any = await queryRunner.manager
+        .getRepository(Users)
+        .save({
+          email,
+          nickname,
+          password: hashedPassword,
+        });
       await queryRunner.manager.getRepository(WorkspaceMembers).save({
         UserId: returned.id,
         WorkspaceId: 1,
