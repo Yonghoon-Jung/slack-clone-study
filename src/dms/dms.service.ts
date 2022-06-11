@@ -90,12 +90,15 @@ export class DMsService {
     const workspace = await this.workspacesRepository.findOne({
       where: { url },
     });
+
     for (let i = 0; i < files.length; i++) {
       const dm = new DMs();
+
       dm.SenderId = myId;
       dm.ReceiverId = id;
       dm.content = files[i].path;
       dm.WorkspaceId = workspace.id;
+
       const savedDm = await this.dmsRepository.save(dm);
       const dmWithSender = await this.dmsRepository.findOne({
         where: { id: savedDm.id },
